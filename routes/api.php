@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HelperController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::post('/place-order', [OrderController::class, 'placeOrder']);
+
+Route::get('/clear', [HelperController::class, 'optimize']);
+
