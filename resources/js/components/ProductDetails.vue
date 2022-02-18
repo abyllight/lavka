@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <p class="md:mb-10">{{item.description}}</p>
+                <p class="md:mb-10">{{item.composition}}</p>
 
                 <div>
                     <div class="fixed bottom-0 rounded-t-2xl inset-x-0 bg-stone-300 drop-shadow-lg py-4 px-6 md:relative md:p-0 md:bg-transparent">
