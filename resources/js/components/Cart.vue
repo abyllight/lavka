@@ -5,7 +5,7 @@
                 <div
                     v-for="item in cart"
                     :key="item.id"
-                    class="flex items-center gap-x-3 max-w-sm"
+                    class="flex items-center space-x-3 max-w-sm"
                 >
                     <div class="h-24 w-24 shrink-0">
                         <img :src="host + item.image" class="object-cover w-full shadow-xl rounded-xl">
@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex gap-x-3">
+                            <div class="flex space-x-3">
                                 <div class="bg-black rounded-md p-1 cursor-pointer" @click="decrement(item.id)">
                                     <img src="/icons/minus.svg" width="20"/>
                                 </div>
