@@ -1,7 +1,7 @@
 <template>
     <product-detail-skeleton v-if="isEmpty"></product-detail-skeleton>
     <div v-if="!isEmpty">
-        <div class="flex flex-col md:flex-row items-start gap-8 max-w-4xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:space-x-10 space-y-8 max-w-4xl mx-auto">
             <div>
                 <div class="w-full md:w-80 lg:w-96">
                     <img :src="host+item.image" class="object-cover w-full shadow-xl rounded-xl"/>
@@ -37,7 +37,7 @@
 
                 <div>
                     <div class="fixed bottom-0 rounded-t-2xl inset-x-0 bg-stone-300 drop-shadow-lg py-4 px-6 md:relative md:p-0 md:bg-transparent">
-                        <div class="flex items-center justify-between md:justify-start gap-x-6 md:gap-x-8">
+                        <div class="flex items-center justify-between md:justify-start space-x-6 md:space-x-8">
                             <div class="flex flex-col">
                                 <span v-if="isInCart" class="text-xs font-bold text-gray-600 md:hidden">Итого</span>
                                 <span class="text-2xl font-medium">{{getTotal}}₸</span>
@@ -45,9 +45,9 @@
                             <div
                                 v-if="!isInCart"
                                 @click="addToCart(item)"
-                                class="flex items-center justify-center gap-x-2 uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-48 rounded-md shadow"
+                                class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-48 rounded-md shadow"
                             >
-                                <img src="/icons/shopping_cart.svg" class="w-5"/>
+                                <img src="/icons/shopping_cart.svg" class="w-5 mr-2.5"/>
                                 Добавить
                             </div>
                             <div

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="cart.length > 0" class="md:flex md:justify-between md:items-start md:max-w-4xl md:mx-auto">
-            <div class="flex flex-col gap-y-10 max-w-sm w-full mb-56 md:mb-0">
+            <div class="flex flex-col space-y-10 max-w-sm w-full mb-56 md:mb-0">
                 <div
                     v-for="item in cart"
                     :key="item.id"
@@ -33,7 +33,7 @@
                 </div>
 
             <!-- CUTLERY -->
-                <div class="flex items-center gap-x-3 max-w-sm">
+                <div class="flex items-center space-x-3 max-w-sm">
                     <div class="h-24 w-24 shrink-0">
                         <img :src="cutlery.image" class="object-cover w-full shadow-xl rounded-xl">
                     </div>
@@ -41,7 +41,7 @@
                         <p class="w-48 leading-tight line-clamp-2 text-lg mb-3">{{cutlery.title}}</p>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex gap-x-3">
+                            <div class="flex space-x-3">
                                 <div class="bg-black rounded-md p-1 cursor-pointer" @click="decrementCutlery">
                                     <img src="/icons/minus.svg" width="20"/>
                                 </div>
@@ -78,10 +78,10 @@
                 <div>
                     <router-link to="/checkout"
                         @click=""
-                        class="flex items-center justify-center gap-x-3 uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 rounded-md shadow"
+                        class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 rounded-md shadow"
                     >
                         Оформить заказ
-                        <img src="/icons/right.svg" class="w-5"/>
+                        <img src="/icons/right.svg" class="ml-2.5 w-5"/>
                     </router-link>
                 </div>
             </div>

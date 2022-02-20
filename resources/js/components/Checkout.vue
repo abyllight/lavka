@@ -2,8 +2,8 @@
     <div v-if="cart.length > 0">
         <div class="max-w-xl w-full">
             <h1 class="text-xl lg:text-2xl font-semibold mb-6 md:mb-10">Оформление заказа</h1>
-            <div class="flex flex-col gap-4 mb-8 md:mb-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col space-y-4 mb-8 md:mb-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 md:space-x-4">
                     <!-- Name -->
                     <div>
                         <label for="name" class="text-sm font-medium">Имя</label>
@@ -107,7 +107,7 @@
             </div>
             <div
                 @click="makeOrder"
-                class="flex items-center justify-center gap-x-2 uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-full md:w-72 rounded-md shadow mb-8"
+                class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-full md:w-72 rounded-md shadow mb-8"
             >
                 Заказать
             </div>
