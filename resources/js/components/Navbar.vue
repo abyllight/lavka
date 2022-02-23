@@ -19,7 +19,7 @@
             </router-link>-->
             <router-link to="/cart">
                 <div class="relative">
-                    <img src="/icons/bag.svg" width="32"/>
+                    <img src="icons/bag.svg" width="32"/>
                     <div class="bg-black w-5 h-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs text-white font-medium">
                         {{getCartTotalQuantity}}
                     </div>
