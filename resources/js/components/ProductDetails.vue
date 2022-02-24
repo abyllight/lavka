@@ -33,10 +33,10 @@
                     </div>
                 </div>
 
-                <p class="md:mb-10">{{item.composition}}</p>
+                <p class="mb-10">{{item.composition}}</p>
 
                 <div>
-                    <div class="fixed bottom-0 rounded-t-2xl inset-x-0 bg-stone-300 drop-shadow-lg py-4 px-6 md:relative md:p-0 md:bg-transparent">
+                    <div class="fixed bottom-0 rounded-t-2xl inset-x-0 bg-stone-300 drop-shadow-lg py-5 px-6 md:relative md:p-0 md:bg-transparent">
                         <div class="flex items-center justify-between md:justify-start space-x-6 md:space-x-8">
                             <div class="flex flex-col">
                                 <span v-if="isInCart" class="text-xs font-bold text-gray-600 md:hidden">Итого</span>
@@ -47,21 +47,10 @@
                                 @click="addToCart(item)"
                                 class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-48 rounded-md shadow"
                             >
-                                <img src="/icons/shopping_cart.svg" class="w-5 mr-2.5"/>
+                                <cart-icon class="w-5 h-5 mr-2"/>
                                 Добавить
                             </div>
-                            <div
-                                v-else
-                                class="flex justify-between items-center w-28"
-                            >
-                                <div class="bg-black p-1 rounded-md cursor-pointer" @click="decrement">
-                                    <img src="/icons/minus.svg" class="w-6"/>
-                                </div>
-                                <span class="text-2xl font-medium">{{getQuantity}}</span>
-                                <div class="bg-black p-1 rounded-md cursor-pointer" @click="increment">
-                                    <img src="/icons/add.svg" class="w-6"/>
-                                </div>
-                            </div>
+                            <plus-minus v-else :item="item" :large="true"/>
                         </div>
                     </div>
                 </div>
@@ -73,10 +62,12 @@
 <script>
 import ProductDataService from "../services/ProductDataService";
 import ProductDetailSkeleton from "./skeletons/ProductDetailSkeleton";
+import CartIcon from "./icons/CartIcon";
+import PlusMinus from "./PlusMinus";
 
 export default {
     name: "ProductDetails",
-    components: {ProductDetailSkeleton},
+    components: {PlusMinus, CartIcon, ProductDetailSkeleton},
     props: {
         id: Number
     },

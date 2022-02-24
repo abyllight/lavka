@@ -13,26 +13,17 @@
                     <div class="w-full">
                         <div class="flex items-start justify-between mb-3">
                             <p class="w-48 leading-tight line-clamp-2 text-lg">{{item.title}}</p>
-                            <img src="/icons/close.svg" width="24" class="cursor-pointer" @click="remove(item.id)"/>
+                            <close-icon class="cursor-pointer w-6 h-6" @click="remove(item.id)"/>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex space-x-3">
-                                <div class="bg-black rounded-md p-1 cursor-pointer" @click="decrement(item.id)">
-                                    <img src="/icons/minus.svg" width="20"/>
-                                </div>
-                                <span class="text-lg font-medium">{{item.q}}</span>
-                                <div class="bg-black rounded-md p-1 cursor-pointer" @click="increment(item.id)">
-                                    <img src="/icons/add.svg" width="20"/>
-                                </div>
-                            </div>
-
+                            <plus-minus :item="item"/>
                             <span class="text-xl font-medium">{{item.total}}₸</span>
                         </div>
                     </div>
                 </div>
 
-            <!-- CUTLERY -->
+                <!-- CUTLERY -->
                 <div class="flex items-center space-x-3 max-w-sm">
                     <div class="h-24 w-24 shrink-0">
                         <img :src="cutlery.image" class="object-cover w-full shadow-xl rounded-xl">
@@ -41,13 +32,13 @@
                         <p class="w-48 leading-tight line-clamp-2 text-lg mb-3">{{cutlery.title}}</p>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex space-x-3">
+                            <div class="flex justify-between items-center w-20">
                                 <div class="bg-black rounded-md p-1 cursor-pointer" @click="decrementCutlery">
-                                    <img src="/icons/minus.svg" width="20"/>
+                                    <minus-icon class="w-4 h-4"/>
                                 </div>
                                 <span class="text-lg font-medium">{{cutlery.q}}</span>
                                 <div class="bg-black rounded-md p-1 cursor-pointer" @click="incrementCutlery">
-                                    <img src="/icons/add.svg" width="20"/>
+                                    <add-icon class="w-4 h-4"/>
                                 </div>
                             </div>
 
@@ -77,11 +68,10 @@
                 </div>
                 <div>
                     <router-link to="/checkout"
-                        @click=""
                         class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 rounded-md shadow"
                     >
                         Оформить заказ
-                        <img src="/icons/right.svg" class="ml-2.5 w-5"/>
+                        <right-icon class="w-5 h-5 ml-2"/>
                     </router-link>
                 </div>
             </div>
@@ -92,7 +82,7 @@
         >
             <div class="text-center">
                 <div class="rounded-full bg-stone-300 w-28 h-28 flex justify-center items-center mb-5">
-                    <img src="/icons/bag.svg">
+                    <bag-icon/>
                 </div>
                 <p class="text-xl">Корзина пуста</p>
             </div>
@@ -102,9 +92,16 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
+import CloseIcon from "./icons/CloseIcon";
+import RightIcon from "./icons/RightIcon";
+import PlusMinus from "./PlusMinus";
+import MinusIcon from "./icons/MinusIcon";
+import AddIcon from "./icons/AddIcon";
+import BagIcon from "./icons/BagIcon";
 
 export default {
     name: "Cart",
+    components: {BagIcon, AddIcon, MinusIcon, PlusMinus, RightIcon, CloseIcon},
     computed: {
         ...mapState(['cart', 'cutlery', 'delivery_fee']),
         ...mapGetters(['getCartTotalPrice', 'getTotal']),

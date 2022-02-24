@@ -119,7 +119,7 @@
     >
         <div class="text-center">
             <div class="rounded-full bg-stone-300 w-28 h-28 flex justify-center items-center mb-5">
-                <img src="/icons/bag.svg">
+                <bag-icon/>
             </div>
             <p class="text-xl">Корзина пуста</p>
         </div>
@@ -133,9 +133,10 @@ import { maska } from 'maska'
 import {mapGetters, mapState} from "vuex";
 import CheckoutModal from "./CheckoutModal";
 import Loading from "./Loading";
+import BagIcon from "./icons/BagIcon";
 export default {
     name: "Checkout",
-    components: {Loading, CheckoutModal},
+    components: {BagIcon, Loading, CheckoutModal},
     directives: {maska},
     data: () => ({
         intervals: [
@@ -200,7 +201,7 @@ export default {
                 this.errors.address = 'Укажите адрес'
             }
 
-            if (this.user.time === 100) {
+            if (this.time === 100) {
                 this.errors.time = 'Выберите время'
             }
 
@@ -238,14 +239,11 @@ export default {
                 { //options
                     publicId: process.env.MIX_CLOUD_PAYMENTS_ID, //id из личного кабинета
                     description: 'Оплата товаров в lavka', //назначение
-                    amount: 1, //сумма
+                    amount: self.getTotal, //сумма
                     currency: 'KZT', //валюта
                     skin: "modern", //дизайн виджета (необязательно)
                     data: {
-                        cart: {
-                            name: 'test',
-                            price: 1
-                        }
+                        cart: self.cart
                     }
                 },
                 {

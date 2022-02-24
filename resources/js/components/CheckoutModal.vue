@@ -1,38 +1,36 @@
 <template>
     <div class="w-full h-full bg-black fixed inset-0 z-40 bg-opacity-70 flex justify-center items-center p-4">
         <div class="max-w-sm w-full px-4 py-8 bg-white rounded-lg flex flex-col items-center">
-            <img :src="icon" class="w-24 mb-5">
-            <p class="text-lg mb-5">{{message}}</p>
+            <component :is="icon" class="mb-1"></component>
+            <p class="text-lg mb-6">{{message}}</p>
             <router-link
-                v-if="status"
-                to="/"
+                :to="to"
                 class="bg-gray-300 px-4 py-2 rounded-md text-sm"
-                @click="$emit('close-modal')">Вернуться к лавке
-            </router-link>
-            <router-link
-                v-else
-                to="/checkout"
-                class="bg-gray-300 px-4 py-2 rounded-md text-sm"
-                @click="$emit('close-modal')">Закрыть
+                @click="$emit('close-modal')">{{btn_text}}
             </router-link>
         </div>
     </div>
 </template>
 
 <script>
+import CheckIcon from "./icons/CheckIcon";
+import WarningIcon from "./icons/WarningIcon";
 export default {
     name: "CheckoutModal",
+    components: {CheckIcon, WarningIcon},
     props: {
         status: Boolean,
         message: String
     },
-    data: () => ({
-        success_icon: '/icons/check.svg',
-        alert_icon: '/icons/warning.svg',
-    }),
     computed: {
         icon() {
-            return this.status ? this.success_icon : this.alert_icon
+            return this.status ? 'check-icon' : 'warning-icon'
+        },
+        to() {
+            return this.status ? '/' : '/checkout'
+        },
+        btn_text() {
+            return this.status ? 'Вернуться в меню' : 'Закрыть'
         }
     }
 }

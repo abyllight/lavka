@@ -1,7 +1,7 @@
 <template>
-    <div class="fixed z-20 w-full bg-gray-200">
-        <div class="max-w-6xl mx-auto py-5 px-4 flex items-center justify-between">
-            <router-link to="/" class="font-medium text-2xl">ЛАВКА</router-link>
+    <div class="fixed z-20 w-full bg-gray-200 shadow-md">
+        <div class="max-w-6xl mx-auto p-4 flex items-center justify-between">
+            <router-link to="/" class="font-medium text-xl">ВкусСити</router-link>
 <!--            <router-link
                 :to="currentRoute === 'Checkout' ? '/cart' : '/'"
             >
