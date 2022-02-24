@@ -7,8 +7,8 @@
                     :key="item.id"
                     class="flex items-center space-x-3 max-w-sm"
                 >
-                    <div class="h-24 w-24 shrink-0">
-                        <img :src="host + item.image" class="object-cover w-full shadow-xl rounded-xl">
+                    <div class="shrink-0">
+                        <img :src="host + item.image" class="object-cover h-24 w-24 w-full shadow-xl rounded-xl">
                     </div>
                     <div class="w-full">
                         <div class="flex items-start justify-between mb-3">

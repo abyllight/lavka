@@ -8,7 +8,7 @@
                 </div>
             </div>
 
-            <div class="relative mb-24 md:mb-0">
+            <div class="relative mb-24 md:mb-0 w-full">
                 <p class="text-3xl font-medium mb-3 leading-tight">{{item.title}}</p>
                 <div class="mb-6 flex justify-around font-light max-w-sm bg-gray-300 py-3 rounded-md">
                     <div class="flex flex-col">
@@ -35,23 +35,21 @@
 
                 <p class="mb-10">{{item.composition}}</p>
 
-                <div>
-                    <div class="fixed bottom-0 rounded-t-2xl inset-x-0 bg-stone-300 drop-shadow-lg py-5 px-6 md:relative md:p-0 md:bg-transparent">
-                        <div class="flex items-center justify-between md:justify-start space-x-6 md:space-x-8">
-                            <div class="flex flex-col">
-                                <span v-if="isInCart" class="text-xs font-bold text-gray-600 md:hidden">Итого</span>
-                                <span class="text-2xl font-medium">{{getTotal}}₸</span>
-                            </div>
-                            <div
-                                v-if="!isInCart"
-                                @click="addToCart(item)"
-                                class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-48 rounded-md shadow"
-                            >
-                                <cart-icon class="w-5 h-5 mr-2"/>
-                                Добавить
-                            </div>
-                            <plus-minus v-else :item="item" :large="true"/>
+                <div class="fixed bottom-0 rounded-t-2xl inset-x-0 bg-stone-300 drop-shadow-lg py-5 px-6 md:relative md:p-0 md:bg-transparent">
+                    <div class="flex items-center justify-between md:justify-start space-x-6 md:space-x-8">
+                        <div class="flex flex-col">
+                            <span v-if="isInCart" class="text-xs font-bold text-gray-600 md:hidden">Итого</span>
+                            <span class="text-2xl font-medium">{{getTotal}}₸</span>
                         </div>
+                        <div
+                            v-if="!isInCart"
+                            @click="addToCart(item)"
+                            class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-48 rounded-md shadow"
+                        >
+                            <cart-icon class="w-5 h-5 mr-2"/>
+                            Добавить
+                        </div>
+                        <plus-minus v-else :item="item" :large="true"/>
                     </div>
                 </div>
             </div>

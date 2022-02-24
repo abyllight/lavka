@@ -2,14 +2,20 @@
     <tags-skeleton v-if="brands.length === 0"></tags-skeleton>
     <cards-skeleton v-if="products.length === 0"></cards-skeleton>
     <div>
-        <div class="mb-10">
+        <div class="mb-10 flex w-full overflow-x-scroll space-x-4 hide-scroll-bar">
             <router-link
                 v-for="brand in brands"
                 :key="brand.id"
                 :to="{name: 'Home', hash: '#'+brand.title}"
-                class="bg-gray-300 inline-block py-2 px-6 rounded-lg cursor-pointer hover:bg-gray-200"
+                class="flex-shrink-0 bg-gray-300 inline-block py-2 px-6 rounded-lg cursor-pointer hover:bg-gray-200"
             >
                 {{brand.title}}
+            </router-link>
+            <router-link
+                to="/"
+                class="flex-shrink-0 bg-gray-300 inline-block py-2 px-6 rounded-lg cursor-pointer hover:bg-gray-200"
+            >
+                Mousse Cakes
             </router-link>
         </div>
         <div :id="brand.title" v-for="brand in brands" class="mb-10">
@@ -54,3 +60,12 @@ export default {
     }
 }
 </script>
+<style scoped>
+.hide-scroll-bar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+</style>

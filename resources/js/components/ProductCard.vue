@@ -4,7 +4,7 @@
         class="flex flex-col rounded-xl hover:bg-stone-300 p-2 md:p-4"
     >
         <div class="mb-2 md:mb-3 relative">
-            <img :src="host+item.image" class="rounded-xl object-cover w-full"/>
+            <img :src="host+item.image" class="rounded-xl object-cover w-full h-36 md:h-48 lg:h-56"/>
         </div>
         <div class="h-28 md:h-32 flex flex-col justify-between">
             <div>
