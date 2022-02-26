@@ -2,9 +2,9 @@
     <product-detail-skeleton v-if="isEmpty"></product-detail-skeleton>
     <div v-if="!isEmpty">
         <div class="flex flex-col md:flex-row items-start md:space-x-10 space-y-8 max-w-4xl mx-auto">
-            <div>
-                <div class="w-full md:w-80 lg:w-96">
-                    <img :src="host+item.image" class="object-cover w-full shadow-xl rounded-xl"/>
+            <div class="mx-auto">
+                <div>
+                    <img :src="host+item.image" class="object-cover w-72 h-72 md:w-full md:max-w-2xl md:h-auto shadow-xl rounded-xl"/>
                 </div>
             </div>
 

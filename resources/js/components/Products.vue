@@ -11,12 +11,6 @@
             >
                 {{brand.title}}
             </router-link>
-            <router-link
-                to="/"
-                class="flex-shrink-0 bg-gray-300 inline-block py-2 px-6 rounded-lg cursor-pointer hover:bg-gray-200"
-            >
-                Mousse Cakes
-            </router-link>
         </div>
         <div :id="brand.title" v-for="brand in brands" class="mb-10">
             <h2 class="text-2xl font-medium mb-4">{{brand.title}}</h2>

@@ -1,30 +1,41 @@
 <template>
     <div class="fixed z-20 w-full bg-gray-200 shadow-md">
         <div class="max-w-6xl mx-auto p-4 flex items-center justify-between">
-            <router-link to="/" class="font-medium text-xl">ВкусСити</router-link>
-<!--            <router-link
-                :to="currentRoute === 'Checkout' ? '/cart' : '/'"
-            >
-                <p
-                    v-if="currentRoute === 'Home'"
-                    class="font-medium text-2xl"
-                >
-                    ЛАВКА
-                </p>
-                <div v-else>
-                    <div class="p-2 rounded-md bg-white shadow cursor-pointer">
-                        <img src="/icons/back.svg" class="w-5"/>
-                    </div>
+        <!-- Left -->
+            <div>
+                <div class="md:hidden">
+                    <router-link :to="currentRoute === 'Checkout' ? '/cart' : '/'">
+                        <div v-if="currentRoute === 'Product' || currentRoute === 'Checkout'">
+                            <div class="p-2 rounded-md bg-white shadow cursor-pointer">
+                                <back-icon class="w-5 h-5"/>
+                            </div>
+                        </div>
+                        <p
+                            v-else
+                            class="font-medium text-xl"
+                        >
+                            ВкусСити
+                        </p>
+                    </router-link>
                 </div>
-            </router-link>-->
-            <router-link to="/cart">
-                <div class="relative">
-                    <bag-icon></bag-icon>
-                    <div class="bg-black w-5 h-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs text-white font-medium">
-                        {{getCartTotalQuantity}}
-                    </div>
+                <div class="md:block font-medium text-xl">
+                    <router-link to='/'>
+                        ВкусСити
+                    </router-link>
                 </div>
-            </router-link>
+            </div>
+
+            <!-- Right -->
+            <div>
+                <router-link to="/cart">
+                    <div class="relative">
+                        <bag-icon></bag-icon>
+                        <div class="bg-black w-5 h-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs text-white font-medium">
+                            {{getCartTotalQuantity}}
+                        </div>
+                    </div>
+                </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -32,10 +43,11 @@
 <script>
 import {mapGetters} from "vuex";
 import BagIcon from "./icons/BagIcon";
+import BackIcon from "./icons/BackIcon";
 
 export default {
     name: "Navbar",
-    components: {BagIcon},
+    components: {BackIcon, BagIcon},
     computed: {
         ...mapGetters(['getCartTotalQuantity']),
         currentRoute() {
