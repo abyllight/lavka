@@ -18,7 +18,7 @@
                         </p>
                     </router-link>
                 </div>
-                <div class="md:block font-medium text-xl">
+                <div class="hidden md:block font-medium text-xl">
                     <router-link to='/'>
                         ВкусСити
                     </router-link>
