@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-20 md:mt-24">
         <div v-if="cart.length > 0" class="md:flex md:justify-between md:items-start md:max-w-4xl md:mx-auto">
             <div class="flex flex-col space-y-10 max-w-sm w-full mb-56 md:mb-0">
                 <div

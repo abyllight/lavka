@@ -3,12 +3,18 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import ProductDetails from "./components/ProductDetails";
 import Checkout from "./components/Checkout";
+import Products from "./components/Products";
 
 const routes = [
     {
         path: '/',
         name: 'Home',
         component: Home
+    },
+    {
+        path: '/products',
+        name: 'Products',
+        component: Products
     },
     {
         path: '/product/:id',

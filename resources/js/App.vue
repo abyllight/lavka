@@ -3,10 +3,8 @@
         <header>
             <Navbar/>
         </header>
-        <main class="flex-grow mt-20 md:mt-24">
-            <div class="max-w-6xl mx-auto p-4">
-                <router-view></router-view>
-            </div>
+        <main class="flex-grow">
+            <router-view></router-view>
         </main>
         <footer>
             <Footer/>

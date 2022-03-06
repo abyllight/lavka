@@ -5,7 +5,11 @@ module.exports = {
       "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+      extend: {
+          colors: {
+              primary: '#ef4444'
+          }
+      },
   },
   plugins: [
       require('@tailwindcss/line-clamp')

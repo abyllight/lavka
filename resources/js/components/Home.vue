@@ -1,14 +1,15 @@
 <template>
     <div>
-        <products></products>
+        <hero></hero>
     </div>
 </template>
 
 <script>
 
 import Products from "./Products";
+import Hero from "./Hero";
 export default {
     name: "Home",
-    components: {Products}
+    components: {Hero, Products}
 }
 </script>

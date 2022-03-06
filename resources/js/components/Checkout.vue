@@ -1,131 +1,133 @@
 <template>
-    <div v-if="cart.length > 0">
-        <div class="max-w-xl w-full">
-            <h1 class="text-xl lg:text-2xl font-semibold mb-6 md:mb-10">Оформление заказа</h1>
-            <div class="flex flex-col space-y-4 mb-8 md:mb-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 md:space-x-4">
-                    <!-- Name -->
-                    <div>
-                        <label for="name" class="text-sm font-medium">Имя</label>
-                        <input
-                            v-model="user.name"
-                            id="name"
-                            type="text"
-                            placeholder="Имя"
-                            class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border rounded-md"
-                            :class="errors.name ? error : ''"
-                        />
-                        <p v-if="errors.name" class="text-red-500 text-sm mt-1">{{errors.name}}</p>
+    <div class="mt-20 md:mt-24">
+        <div v-if="cart.length > 0">
+            <div class="max-w-xl w-full mx-auto">
+                <h1 class="text-xl lg:text-2xl font-semibold mb-6 md:mb-10">Оформление заказа</h1>
+                <div class="flex flex-col space-y-4 mb-8 md:mb-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="text-sm font-medium">Имя</label>
+                            <input
+                                v-model="user.name"
+                                id="name"
+                                type="text"
+                                placeholder="Имя"
+                                class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border rounded-md"
+                                :class="errors.name ? error : ''"
+                            />
+                            <p v-if="errors.name" class="text-red-500 text-sm mt-1">{{errors.name}}</p>
+                        </div>
+                        <!-- Phone -->
+                        <div>
+                            <label for="phone" class="text-sm font-medium">Телефон</label>
+                            <input
+                                v-model="user.phone"
+                                id="phone"
+                                type="text"
+                                v-maska="'+7 (###) ###-##-##'"
+                                placeholder="+7 (###) ###-##-##"
+                                class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border rounded-md"
+                                :class="errors.phone ? error : ''"
+                            />
+                            <p v-if="errors.phone" class="text-red-500 text-sm mt-1">{{errors.phone}}</p>
+                        </div>
                     </div>
-                    <!-- Phone -->
+                    <!-- Address -->
                     <div>
-                        <label for="phone" class="text-sm font-medium">Телефон</label>
+                        <label for="address" class="text-sm font-medium">Адрес</label>
                         <input
-                            v-model="user.phone"
-                            id="phone"
+                            v-model="user.address"
+                            id="address"
                             type="text"
-                            v-maska="'+7 (###) ###-##-##'"
-                            placeholder="+7 (###) ###-##-##"
+                            placeholder="Например: Сыганак 10, кв17, п2, э4"
                             class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border rounded-md"
                             :class="errors.phone ? error : ''"
                         />
-                        <p v-if="errors.phone" class="text-red-500 text-sm mt-1">{{errors.phone}}</p>
+                        <p v-if="errors.name" class="text-red-500 text-sm mt-1">{{errors.name}}</p>
+                    </div>
+                    <!-- Time -->
+                    <div
+                        class="mb-5 inline-block rounded"
+                        :class="{ 'border border-red-500': errors.time }"
+                    >
+                        <label for="time" class="text-sm font-medium">Выберите время на завтра</label>
+                        <div id="time" class="mt-3 flex flex-wrap">
+                            <button
+                                v-for="interval in intervals"
+                                :key="interval.id"
+                                @click.stop="time = interval.id"
+                                class="text-sm mr-2 mb-2 cursor-pointer focus:outline-none rounded-lg py-2 px-3 inline"
+                                :class="[interval.id === time ? active_time : inactive_time]"
+                            >
+                                {{ interval.time }}
+                            </button>
+                        </div>
+                        <p v-if="errors.time" class="text-red-500 text-sm mt-1">{{errors.time}}</p>
+                    </div>
+                    <!-- Payment -->
+                    <div>
+                        <label for="payment" class="text-sm font-medium">Выберите способ оплаты</label>
+                        <div id="payment" class="mt-4 space-y-4">
+                            <div class="flex items-center">
+                                <input
+                                    id="card"
+                                    v-model="user.payment"
+                                    value="card"
+                                    type="radio"
+                                    class="focus:ring-yellow-300 h-4 w-4 text-yellow-300 border-gray-300" />
+                                <label for="card" class="ml-3 block text-sm text-gray-700">
+                                    Оплата картой на сайте
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    id="kaspi_pay"
+                                    v-model="user.payment"
+                                    value="kaspi_pay"
+                                    type="radio"
+                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" />
+                                <label for="kaspi_pay" class="ml-3 block text-sm text-gray-700">
+                                    Удаленная оплата Kaspi Pay
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    id="contract"
+                                    v-model="user.payment"
+                                    value="contract"
+                                    type="radio"
+                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" />
+                                <label for="contract" class="ml-3 block text-sm text-gray-700">
+                                    Безналичный расчет по договору
+                                </label>
+                            </div>
+                        </div>
+                        <p v-if="user.time < 0" class="text-red-500 text-xs mt-1">Выберите время</p>
                     </div>
                 </div>
-                <!-- Address -->
-                <div>
-                    <label for="address" class="text-sm font-medium">Адрес</label>
-                    <input
-                        v-model="user.address"
-                        id="address"
-                        type="text"
-                        placeholder="Например: Сыганак 10, кв17, п2, э4"
-                        class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border rounded-md"
-                        :class="errors.phone ? error : ''"
-                    />
-                    <p v-if="errors.name" class="text-red-500 text-sm mt-1">{{errors.name}}</p>
-                </div>
-                <!-- Time -->
                 <div
-                    class="mb-5 inline-block rounded"
-                    :class="{ 'border border-red-500': errors.time }"
+                    @click="makeOrder"
+                    class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-full md:w-72 rounded-md shadow mb-8"
                 >
-                    <label for="time" class="text-sm font-medium">Выберите время на завтра</label>
-                    <div id="time" class="mt-3 flex flex-wrap">
-                        <button
-                            v-for="interval in intervals"
-                            :key="interval.id"
-                            @click.stop="time = interval.id"
-                            class="text-sm mr-2 mb-2 cursor-pointer focus:outline-none rounded-lg py-2 px-3 inline"
-                            :class="[interval.id === time ? active_time : inactive_time]"
-                        >
-                            {{ interval.time }}
-                        </button>
-                    </div>
-                    <p v-if="errors.time" class="text-red-500 text-sm mt-1">{{errors.time}}</p>
-                </div>
-                <!-- Payment -->
-                <div>
-                    <label for="payment" class="text-sm font-medium">Выберите способ оплаты</label>
-                    <div id="payment" class="mt-4 space-y-4">
-                        <div class="flex items-center">
-                            <input
-                                id="card"
-                                v-model="user.payment"
-                                value="card"
-                                type="radio"
-                                class="focus:ring-yellow-300 h-4 w-4 text-yellow-300 border-gray-300" />
-                            <label for="card" class="ml-3 block text-sm text-gray-700">
-                                Оплата картой на сайте
-                            </label>
-                        </div>
-                        <div class="flex items-center">
-                            <input
-                                id="kaspi_pay"
-                                v-model="user.payment"
-                                value="kaspi_pay"
-                                type="radio"
-                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" />
-                            <label for="kaspi_pay" class="ml-3 block text-sm text-gray-700">
-                                Удаленная оплата Kaspi Pay
-                            </label>
-                        </div>
-                        <div class="flex items-center">
-                            <input
-                                id="contract"
-                                v-model="user.payment"
-                                value="contract"
-                                type="radio"
-                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" />
-                            <label for="contract" class="ml-3 block text-sm text-gray-700">
-                                Безналичный расчет по договору
-                            </label>
-                        </div>
-                    </div>
-                    <p v-if="user.time < 0" class="text-red-500 text-xs mt-1">Выберите время</p>
+                    Заказать
                 </div>
             </div>
-            <div
-                @click="makeOrder"
-                class="flex items-center justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3.5 w-full md:w-72 rounded-md shadow mb-8"
-            >
-                Заказать
+        </div>
+        <div
+            v-else
+            class="flex justify-center h-96 items-center"
+        >
+            <div class="text-center">
+                <div class="rounded-full bg-stone-300 w-28 h-28 flex justify-center items-center mb-5">
+                    <bag-icon/>
+                </div>
+                <p class="text-xl">Корзина пуста</p>
             </div>
         </div>
+        <checkout-modal v-if="showModal" :status="status" :message="message" @close-modal="closeModal"/>
+        <loading :loading="loading"/>
     </div>
-    <div
-        v-else
-        class="flex justify-center h-96 items-center"
-    >
-        <div class="text-center">
-            <div class="rounded-full bg-stone-300 w-28 h-28 flex justify-center items-center mb-5">
-                <bag-icon/>
-            </div>
-            <p class="text-xl">Корзина пуста</p>
-        </div>
-    </div>
-    <checkout-modal v-if="showModal" :status="status" :message="message" @close-modal="closeModal"/>
-    <loading :loading="loading"/>
 </template>
 
 <script>

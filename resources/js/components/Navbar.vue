@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed z-20 w-full bg-gray-200 shadow-md">
+    <div class="fixed z-20 w-full shadow-md bg-white bg-opacity-60 backdrop-filter backdrop-blur-lg">
         <div class="max-w-6xl mx-auto p-4 flex items-center justify-between">
         <!-- Left -->
             <div>
@@ -30,7 +30,7 @@
                 <router-link to="/cart">
                     <div class="relative">
                         <bag-icon></bag-icon>
-                        <div class="bg-black w-5 h-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs text-white font-medium">
+                        <div class="bg-primary w-5 h-5 absolute -top-2 -right-2 rounded-full flex justify-center items-center text-xs text-white font-medium">
                             {{getCartTotalQuantity}}
                         </div>
                     </div>
