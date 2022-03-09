@@ -1,14 +1,33 @@
 <template>
-    <div class="bg-zinc-900 text-white w-full overflow-hidden">
+    <div class="bg-zinc-900">
+        <div class="max-w-6xl px-4 lg:h-[720px] flex flex-col lg:flex-row items-center justify-center space-y-12 lg:space-y-0 lg:space-x-6 mx-auto relative py-24 lg:py-0">
+
+            <div class="text-white text-center lg:text-left">
+                <h1 class="text-4xl lg:text-6xl font-medium mb-4">Вкус Сити</h1>
+                <p class="mb-10">Вкусная еда в вашем городе <br class="lg:hidden">с доставкой на дом</p>
+<!--                <router-link
+                    to="/products"
+                    class="bg-primary rounded-lg px-8 py-3 w-32 text-sm uppercase font-medium cursor-pointer hover:bg-red-600"
+                >
+                    Заказать
+                </router-link>-->
+            </div>
+
+            <div class="md:w-2/3">
+                <img src="/images/main.jpg"/>
+            </div>
+        </div>
+    </div>
+<!--    <div class="bg-zinc-900 text-white w-full overflow-hidden">
         <div class="max-w-6xl w-full px-4 mx-auto relative
             flex flex-col justify-center
-            overflow-hidden lg:overflow-visible lg:h-[800px]"
+            overflow-hidden lg:overflow-visible lg:h-[720px]"
         >
 
             <div class="max-w-sm w-full text-center mt-32 lg:mt-0 lg:absolute lg:z-10 lg:inset-x-0 mx-auto">
                 <h1 class="text-4xl lg:text-6xl font-medium mb-4">Вкусная Еда в <br> Вашем Городе</h1>
                 <p class="mb-7">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                <router-link to="/products" class="bg-primary rounded-lg px-4 py-2 w-32 text-sm uppercase font-medium cursor-pointer hover:bg-red-600">Заказать</router-link>
+                <router-link to="/products" class="bg-primary rounded-lg px-8 py-3 w-32 text-sm uppercase font-medium cursor-pointer hover:bg-red-600">Заказать</router-link>
             </div>
 
             <div class="relative h-[460px] w-80 mx-auto
@@ -30,7 +49,7 @@
                 <img src="/images/vr5.jpg" class="hidden lg:block w-48 absolute rounded-xl -bottom-24 left-0">
             </div>
         </div>
-    </div>
+    </div>-->
 </template>
 
 <script>

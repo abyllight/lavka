@@ -1,8 +1,8 @@
 <template>
-    <div class="mt-20 md:mt-24">
+    <div class="max-w-4xl mx-auto mt-20 md:mt-24 px-4">
         <product-detail-skeleton v-if="isEmpty"></product-detail-skeleton>
         <div v-if="!isEmpty">
-            <div class="flex flex-col md:flex-row items-start md:space-x-10 space-y-8 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row items-start md:space-x-10 space-y-8">
                 <div class="mx-auto">
                     <div>
                         <img :src="host+item.image" class="object-cover w-72 h-72 md:w-full md:max-w-2xl md:h-auto shadow-xl rounded-xl"/>

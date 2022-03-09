@@ -18,7 +18,7 @@
             </div>
             <div class="w-full flex justify-between items-end">
                 <span class="text-xl font-medium">{{item.price}}₸</span>
-                <div v-if="!isInCart" class="text-xl text-white flex justify-center items-center bg-stone-900 hover:bg-stone-700 drop-shadow-lg cursor-pointer rounded-full w-8 h-8 md:w-10 md:h-10">
+                <div v-if="!isInCart" class="text-xl text-white flex justify-center items-center bg-primary hover:bg-stone-700 drop-shadow-lg cursor-pointer rounded-full w-8 h-8 md:w-10 md:h-10">
                     <add-icon class="w-6 md:w-7"/>
                 </div>
                 <plus-minus v-else :item="item"/>

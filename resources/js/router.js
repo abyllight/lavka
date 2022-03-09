@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import Cart from "./components/Cart";
 import ProductDetails from "./components/ProductDetails";
 import Checkout from "./components/Checkout";
-import Products from "./components/Products";
+import Brand from "./components/Brand";
 
 const routes = [
     {
@@ -12,9 +12,12 @@ const routes = [
         component: Home
     },
     {
-        path: '/products',
-        name: 'Products',
-        component: Products
+        path: '/brand/:id',
+        name: 'Brand',
+        props: route => ({
+            id: parseInt(route.params.id)
+        }),
+        component: Brand
     },
     {
         path: '/product/:id',

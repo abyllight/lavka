@@ -1,10 +1,10 @@
 <template>
     <div class="flex justify-between items-center" :class="width">
-        <div class="bg-black p-1 rounded-md cursor-pointer" @click.prevent="decrement">
+        <div class="bg-primary p-1 rounded-md cursor-pointer" @click.prevent="decrement">
             <minus-icon :class="iconSize"/>
         </div>
         <span class="font-medium" :class="textSize">{{getQuantity}}</span>
-        <div class="bg-black p-1 rounded-md cursor-pointer" @click.prevent="increment">
+        <div class="bg-primary p-1 rounded-md cursor-pointer" @click.prevent="increment">
             <add-icon :class="iconSize"/>
         </div>
     </div>

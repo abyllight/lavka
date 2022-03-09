@@ -1,7 +1,7 @@
 <template>
-    <div class="fixed z-20 w-full shadow-md bg-white bg-opacity-60 backdrop-filter backdrop-blur-lg">
-        <div class="max-w-6xl mx-auto p-4 flex items-center justify-between">
-        <!-- Left -->
+    <div class="fixed z-20 w-full shadow-lg bg-zinc-900">
+        <div class="max-w-6xl text-white mx-auto p-4 flex items-center justify-between">
+            <!-- Left -->
             <div>
                 <div class="md:hidden">
                     <router-link :to="currentRoute === 'Checkout' ? '/cart' : '/'">

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-20 md:mt-24">
+    <div class="mt-20 md:mt-24 p-4">
         <div v-if="cart.length > 0" class="md:flex md:justify-between md:items-start md:max-w-4xl md:mx-auto">
             <div class="flex flex-col space-y-10 max-w-sm w-full mb-56 md:mb-0">
                 <div
@@ -8,28 +8,28 @@
                     class="flex items-center space-x-3 max-w-sm"
                 >
                     <div class="shrink-0">
-                        <img :src="host + item.image" class="object-cover h-24 w-24 w-full shadow-xl rounded-xl">
+                        <img :src="host + item.image" class="object-cover h-20 w-20 md:h-24 md:w-24 w-full shadow-xl rounded-xl">
                     </div>
                     <div class="w-full">
                         <div class="flex items-start justify-between mb-3">
-                            <p class="w-48 leading-tight line-clamp-2 text-lg">{{item.title}}</p>
+                            <p class="w-40 md:w-48 leading-tight line-clamp-2 md:text-lg">{{item.title}}</p>
                             <close-icon class="cursor-pointer w-6 h-6" @click="remove(item.id)"/>
                         </div>
 
                         <div class="flex items-center justify-between">
                             <plus-minus :item="item"/>
-                            <span class="text-xl font-medium">{{item.total}}₸</span>
+                            <span class="text-lg font-medium">{{item.total}}₸</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- CUTLERY -->
                 <div class="flex items-center space-x-3 max-w-sm">
-                    <div class="h-24 w-24 shrink-0">
+                    <div class="h-20 w-20 md:h-24 md:w-24 shrink-0">
                         <img :src="cutlery.image" class="object-cover w-full shadow-xl rounded-xl">
                     </div>
                     <div class="w-full">
-                        <p class="w-48 leading-tight line-clamp-2 text-lg mb-3">{{cutlery.title}}</p>
+                        <p class="w-40 md:w-48 leading-tight line-clamp-2 md:text-lg mb-3">{{cutlery.title}}</p>
 
                         <div class="flex items-center justify-between">
                             <div class="flex justify-between items-center w-20">
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
 
-                            <span class="text-xl font-medium">{{cutlery.total}}₸</span>
+                            <span class="text-lg font-medium">{{cutlery.total}}₸</span>
                         </div>
                     </div>
                 </div>
