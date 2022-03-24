@@ -1,9 +1,10 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Home from "./components/Home";
-import Cart from "./components/Cart";
-import ProductDetails from "./components/ProductDetails";
-import Checkout from "./components/Checkout";
-import Brand from "./components/Brand";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import ProductDetails from "./pages/ProductDetails";
+import Checkout from "./pages/Checkout";
+import Brand from "./pages/Brand";
+import Builder from "./pages/Builder";
 
 const routes = [
     {
@@ -28,6 +29,11 @@ const routes = [
         component: ProductDetails
     },
     {
+        path: '/bbb',
+        name: 'Builder',
+        component: Builder
+    },
+    {
         path: '/cart',
         name: 'Cart',
         component: Cart
@@ -46,6 +52,7 @@ const router = createRouter({
         if (to.hash) {
             return {
                 el: to.hash,
+                top: 124,
                 behavior: 'smooth'
             }
         }else {

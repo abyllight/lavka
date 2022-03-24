@@ -4,7 +4,7 @@
             <div class="max-w-xl w-full mx-auto px-4">
                 <h1 class="text-xl lg:text-2xl font-semibold mb-6 md:mb-10">Оформление заказа</h1>
                 <div class="flex flex-col space-y-4 mb-8 md:mb-10">
-                    <div class="grid grid-cols-1 md:grid-cols-2 md:space-x-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- Name -->
                         <div>
                             <label for="name" class="text-sm font-medium">Имя</label>
@@ -133,12 +133,12 @@
 <script>
 import { maska } from 'maska'
 import {mapGetters, mapState} from "vuex";
-import CheckoutModal from "./CheckoutModal";
-import Loading from "./Loading";
-import BagIcon from "./icons/BagIcon";
+import BagIcon from "../icons/BagIcon";
+import CheckoutModal from "../components/CheckoutModal";
+import Loading from "../components/Loading";
 export default {
     name: "Checkout",
-    components: {BagIcon, Loading, CheckoutModal},
+    components: {Loading, CheckoutModal, BagIcon},
     directives: {maska},
     data: () => ({
         intervals: [
@@ -176,6 +176,9 @@ export default {
         ...mapGetters(['getCartTotalPrice', 'getTotal', 'getWholesale']),
         host() {
             return this.$store.state.host
+        },
+        uuid() {
+            return this.$store.state.user.uuid
         }
     },
     methods: {
@@ -212,17 +215,19 @@ export default {
         closeModal() {
             this.showModal = false
         },
-        amoRequest() {
+        async amoRequest() {
             this.loading = true
-            axios.post('/api/place-order', {
-                cart: this.cart,
+            await axios.post('https://back.eatandfit.kz/api/shop', {
+                c_id: this.uuid,
                 user: this.user,
                 time: this.intervals[this.time].time,
                 cutlery: this.cutlery.q,
                 total: this.getTotal,
                 wholesale: this.getWholesale
             }).then(response => {
-                    this.loading = false
+                console.log(response)
+
+                this.loading = false
                     this.status = response.data.status
                     this.message = response.data.message
                     this.showModal = true
@@ -235,17 +240,20 @@ export default {
         },
         cloudPayment() {
             let self = this
+            let cart = this.cart
+            const total = this.getTotal
             const widget = new cp.CloudPayments();
+
             widget.pay(
                 'auth', // или 'charge'
                 { //options
                     publicId: process.env.MIX_CLOUD_PAYMENTS_ID, //id из личного кабинета
                     description: 'Оплата товаров в lavka', //назначение
-                    amount: self.getTotal, //сумма
+                    amount: total, //сумма
                     currency: 'KZT', //валюта
                     skin: "modern", //дизайн виджета (необязательно)
                     data: {
-                        cart: self.cart
+                        cart: cart
                     }
                 },
                 {

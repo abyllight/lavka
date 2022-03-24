@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import CheckIcon from "./icons/CheckIcon";
-import WarningIcon from "./icons/WarningIcon";
+import CheckIcon from "../icons/CheckIcon";
+import WarningIcon from "../icons/WarningIcon";
 export default {
     name: "CheckoutModal",
     components: {CheckIcon, WarningIcon},

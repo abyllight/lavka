@@ -1,10 +1,10 @@
 <template>
     <div class="fixed z-20 w-full shadow-lg bg-zinc-900">
-        <div class="max-w-6xl text-white mx-auto p-4 flex items-center justify-between">
+        <div class="max-w-6xl text-white mx-auto px-4 py-3.5 flex items-center justify-between">
             <!-- Left -->
             <div>
-                <div class="md:hidden">
-                    <router-link :to="currentRoute === 'Checkout' ? '/cart' : '/'">
+                <div class="">
+                    <router-link :to="to">
                         <div v-if="currentRoute === 'Product' || currentRoute === 'Checkout'">
                             <div class="p-2 rounded-md bg-white shadow cursor-pointer">
                                 <back-icon class="w-5 h-5"/>
@@ -18,11 +18,11 @@
                         </p>
                     </router-link>
                 </div>
-                <div class="hidden md:block font-medium text-xl">
+<!--                <div class="hidden md:block font-medium text-xl">
                     <router-link to='/'>
                         ВкусСити
                     </router-link>
-                </div>
+                </div>-->
             </div>
 
             <!-- Right -->
@@ -42,17 +42,37 @@
 
 <script>
 import {mapGetters} from "vuex";
-import BagIcon from "./icons/BagIcon";
-import BackIcon from "./icons/BackIcon";
+import BackIcon from "../icons/BackIcon";
+import BagIcon from "../icons/BagIcon";
+import store from "../store";
 
 export default {
     name: "Navbar",
-    components: {BackIcon, BagIcon},
+    components: {BagIcon, BackIcon},
     computed: {
         ...mapGetters(['getCartTotalQuantity']),
         currentRoute() {
             return this.$route.name
+        },
+        to() {
+            let to = ''
+            switch (this.$route.name) {
+                case 'Checkout':
+                    to = '/cart'
+                    break
+                case 'Product':
+                    to = this.$router.options.history.state.back
+                    break
+                default:
+                    to = '/'
+            }
+
+            return to
         }
+    },
+    mounted() {
+        this.$store.dispatch('me').then(() => {
+        })
     }
 }
 </script>

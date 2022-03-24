@@ -1,7 +1,9 @@
 import { createStore } from 'vuex'
+import { uuid } from "vue-uuid";
+import axios from "axios";
+import loading from "./components/Loading";
 
-let cart = window.localStorage.getItem('cart');
-let user = window.localStorage.getItem('go_user');
+let host = 'https://back.eatandfit.kz/api'
 let cutlery = window.localStorage.getItem('cutlery');
 let cutlery_sample = {
     id: 0,
@@ -15,8 +17,9 @@ let cutlery_sample = {
 const store = createStore({
     state () {
         return {
-            user: user ? JSON.parse(user) : {},
-            cart: cart ? JSON.parse(cart) : [],
+            user: {},
+            cart: [],
+            loading: false,
             cutlery: cutlery ? JSON.parse(cutlery) : cutlery_sample,
             delivery_fee: 600,
             host: process.env.MIX_BACK_HOST_URL
@@ -30,14 +33,14 @@ const store = createStore({
             return state.cart.reduce((sum, item) => sum + item.q, 0)
         },
         isInCart: state => id => {
-            return state.cart.some(product => product.id === id)
+            return state.cart.some(product => product.p_id === id)
         },
         getItemQuantity: state => id => {
-            let found = state.cart.find(product => product.id === id)
+            let found = state.cart.find(product => product.p_id === id)
             return found.q
         },
         getItemTotal: state => id => {
-            let found = state.cart.find(product => product.id === id)
+            let found = state.cart.find(product => product.p_id === id)
             return found ? found.total : 0
         },
         getTotal: state => {
@@ -46,33 +49,21 @@ const store = createStore({
         },
         getWholesale: state => {
             return state.cart.reduce((sum, item) => sum + (item.q * item.wholesale_price), 0)
+        },
+        getItemId: state => id => {
+            let found = state.cart.find(product => product.p_id === id)
+            return found.uuid
+        },
+        isLoading: state => {
+            return state.loading
         }
     },
     mutations: {
-        ADD_TO_CART(state, item) {
-            item.q = 1
-            item.total = item.price
-            state.cart.push(item)
+        SET_USER(state, user) {
+            state.user = user
         },
-        REMOVE_FROM_CART(state, id) {
-            let index = state.cart.findIndex(item => item.id === id);
-
-            if (index > -1) {
-                state.cart.splice(index, 1);
-            }
-        },
-        DECREMENT(state, id){
-            let found = state.cart.find(product => product.id === id)
-            found.q -= 1
-            found.total = found.q * found.price
-        },
-        INCREMENT(state, id){
-            let found = state.cart.find(product => product.id === id)
-            found.q += 1
-            found.total = found.q * found.price
-        },
-        SAVE_CART(state){
-            window.localStorage.setItem('cart', JSON.stringify(state.cart));
+        SET_CART(state, cart) {
+            state.cart = cart
         },
         SAVE_CUTLERY(state){
             window.localStorage.setItem('cutlery', JSON.stringify(state.cutlery));
@@ -90,35 +81,72 @@ const store = createStore({
         INCREMENT_CUTLERY(state){
             state.cutlery.q += 1
             state.cutlery.total = state.cutlery.q * state.cutlery.price
+        },
+        START_LOADING(state) {
+            state.loading = true
+        },
+        STOP_LOADING(state) {
+            state.loading = false
         }
     },
     actions: {
-        addToCart({state, commit}, item) {
-            commit('ADD_TO_CART', item)
-            commit('SAVE_CART')
-        },
-        increment({state, commit}, id) {
-            commit('INCREMENT', id)
-            commit('SAVE_CART')
-        },
-        decrement({state, commit}, id) {
-            let count = this.getters.getItemQuantity(id)
+        async me({ commit }){
+            let device = localStorage.getItem('v_device')
 
-            if (count > 1) {
-                commit('DECREMENT', id)
-            }else {
-                commit('REMOVE_FROM_CART', id)
+            if (device === null || device === undefined) {
+                device = uuid.v1()
+                window.localStorage.setItem('v_device', device);
             }
 
-            commit('SAVE_CART')
+            await axios.get(host+'/customer/'+device)
+                .then(response => {
+                    commit('SET_USER', response.data.user)
+                    commit('SET_CART', response.data.cart)
+                })
         },
-        removeFromCart({state, commit}, id) {
-            commit('REMOVE_FROM_CART', id)
-            commit('SAVE_CART')
+        getCart({ commit }) {
+            axios.get(host+'/cart/'+this.state.user.cart_id)
+                .then(response => {
+                    commit('SET_CART', response.data.data)
+                    commit('STOP_LOADING')
+                })
+        },
+        addToCart({commit, dispatch}, p_id) {
+            commit('START_LOADING')
+
+            axios.post(host+ '/cart-item/add', {
+                customer_id: this.state.user.id,
+                product_id: p_id
+            }).then(r => {
+                dispatch('getCart')
+            })
+        },
+        increment({commit, dispatch}, id) {
+            commit('START_LOADING')
+            axios.post(host + '/cart-item/increment', {
+                id: id
+            }).then( r => {
+                    dispatch('getCart')
+                })
+        },
+        decrement({commit, dispatch}, id) {
+            commit('START_LOADING')
+            axios.post(host + '/cart-item/decrement', {
+                id: id
+            }).then( r => {
+                dispatch('getCart')
+            })
+        },
+        removeFromCart({commit, dispatch}, id) {
+            commit('START_LOADING')
+            axios.post(host + '/cart-item/remove', {
+                id: id
+            }).then( r => {
+                dispatch('getCart')
+            })
         },
         clearCart({commit}) {
             commit('CLEAR_CART')
-            commit('SAVE_CART')
         },
         clearCutlery({commit}) {
             commit('CLEAR_CUTLERY')
@@ -134,6 +162,12 @@ const store = createStore({
             }
             commit('DECREMENT_CUTLERY')
             commit('SAVE_CUTLERY')
+        },
+        startLoading({commit}) {
+            commit('START_LOADING')
+        },
+        stopLoading({commit}) {
+            commit('STOP_LOADING')
         }
     }
 })

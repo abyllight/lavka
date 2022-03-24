@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-20 md:mt-24 p-4">
+    <div class="my-20 md:my-24 p-4">
         <div v-if="cart.length > 0" class="md:flex md:justify-between md:items-start md:max-w-4xl md:mx-auto">
             <div class="flex flex-col space-y-10 max-w-sm w-full mb-56 md:mb-0">
                 <div
@@ -13,11 +13,11 @@
                     <div class="w-full">
                         <div class="flex items-start justify-between mb-3">
                             <p class="w-40 md:w-48 leading-tight line-clamp-2 md:text-lg">{{item.title}}</p>
-                            <close-icon class="cursor-pointer w-6 h-6" @click="remove(item.id)"/>
+                            <close-icon class="cursor-pointer w-6 h-6" @click="remove(item.p_id)"/>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <plus-minus :item="item"/>
+                            <plus-minus :id="item.p_id"/>
                             <span class="text-lg font-medium">{{item.total}}₸</span>
                         </div>
                     </div>
@@ -92,16 +92,16 @@
 
 <script>
 import {mapState, mapGetters} from "vuex";
-import CloseIcon from "./icons/CloseIcon";
-import RightIcon from "./icons/RightIcon";
-import PlusMinus from "./PlusMinus";
-import MinusIcon from "./icons/MinusIcon";
-import AddIcon from "./icons/AddIcon";
-import BagIcon from "./icons/BagIcon";
+import CloseIcon from "../icons/CloseIcon";
+import PlusMinus from "../components/PlusMinus";
+import MinusIcon from "../icons/MinusIcon";
+import AddIcon from "../icons/AddIcon";
+import RightIcon from "../icons/RightIcon";
+import BagIcon from "../icons/BagIcon";
 
 export default {
     name: "Cart",
-    components: {BagIcon, AddIcon, MinusIcon, PlusMinus, RightIcon, CloseIcon},
+    components: {BagIcon, RightIcon, AddIcon, MinusIcon, PlusMinus, CloseIcon},
     computed: {
         ...mapState(['cart', 'cutlery', 'delivery_fee']),
         ...mapGetters(['getCartTotalPrice', 'getTotal']),
@@ -110,14 +110,9 @@ export default {
         }
     },
     methods: {
-        increment(id) {
-            this.$store.dispatch('increment', id);
-        },
-        decrement(id) {
-            this.$store.dispatch('decrement', id);
-        },
         remove(id){
-            this.$store.dispatch('removeFromCart', id);
+            let uuid = this.$store.getters.getItemId(id)
+            this.$store.dispatch('removeFromCart', uuid);
         },
         incrementCutlery() {
             this.$store.dispatch('incrementCutlery');

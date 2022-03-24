@@ -1,0 +1,180 @@
+<template>
+    <div class="h-full">
+        <div class="max-w-6xl mx-auto px-4 py-20 flex flex-col md:flex-row gap-x-10 justify-center items-center">
+            <!--   Result   -->
+            <div class="w-full md:w-1/3 mb-12 md:mb-0 relative">
+                <div class="relative flex justify-center items-center">
+                    <svg class="relative z-20 mix-blend-multiply" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1067">
+                        <path :style="'fill:'+color" d="M328 367.27c2.14-1.85 1.68-3.65 4.13-10.66 0 0 .53-1.52 3.3-8 2.36-5.55 12.1-19 28.77-29.38 5.81-3.61 31.75-18.77 62.93-12 2.88.62 23.84 5.35 35.19 16.58a152.3 152.3 0 0 0 19.46 16.75c1.88 1.36 1.46 1 2.87 2 9.95 7.3 20.83 18.29 20 25.21a4.49 4.49 0 0 0 .17 2.36c1.13 3 5.77 3.7 7.44 4.07 4.58 1 10.9 8.12 23.35 22.33 4.17 4.76 6.25 7.14 8.79 10.32 10.55 13.19 15.82 19.79 16.08 27.23.13 3.91-.86 6.69 1.18 9s5.57 1.86 9.81 5.75a20.23 20.23 0 0 1 2 2.2c4.76 5.65 11.42 9.93 12.93 11 8.42 5.92 20 26.66 24.12 48.56a104.55 104.55 0 0 1 1 29.44 68.29 68.29 0 0 1-3.22 15.23 66.91 66.91 0 0 1-5.92 12.51c-3.58 6.14-8.88 15.21-18.78 24.7-11.55 11.09-24.1 17.89-31.46 20.14-4.88 1.48-7.31 2.22-9.63 2.29-3.94.11-7.44-.8-8.81 1.09a3.26 3.26 0 0 0-.51 2.2c.27 4.53-6.31 14.73-14 23-7 7.52-12.95 11.7-23 18.78 0 0-14.35 10.09-23.5 11.74l-5.26.94c-.55 1.42-1.33 3.35-2.37 5.59a84.65 84.65 0 0 1-10.15 16.58c-5.85 7.38-11.65 11.79-16.92 15.73a104 104 0 0 1-26.05 14.89c-6.67 2.56-17.24 6.52-31.64 6.43a78.67 78.67 0 0 1-34.17-8.12c-13.07-6.48-20.66-14.85-26.22-21-3.05-3.36-11.47-13.08-16.75-25.38-2.79-6.48-4.18-9.73-4.4-13.87s.61-6.41-1.19-9.14c-2.17-3.3-6.41-4.51-7.78-4.9a18.35 18.35 0 0 0-5.75-.68c-9.56.18-21.82-14.51-26.22-19.79-4.56-5.47-10.28-11.92-13.88-20.81-2.57-6.37-3.86-9.55-3.89-13 0-2.74.49-5.35-1.18-7.44-1.78-2.24-4.89-2.44-5.75-2.54-10.79-1.24-24.43-18.82-28.09-23.52a91.06 91.06 0 0 1-13.87-25.54 86.3 86.3 0 0 1-4.57-20.3 78.78 78.78 0 0 1 .68-19.8 83.13 83.13 0 0 1 8.12-23.68c2.84-5.55 14.48-26.91 34.34-36.88 7.77-3.9 11.66-5.85 16.93-6.57 5.69-.77 10.06 0 12-2.91 1.5-2.24 0-4.37 1.7-9.47a25 25 0 0 1 2.53-5.24A55.26 55.26 0 0 1 275 396.2c1.18-1 8.92-7.49 17.43-9.81 3.5-1 5.58-1.36 5.58-1.36 5.4-1 6.57-.48 8.63-1.69s1.58-2 4.74-6.09c2.54-3.28 4.18-5.39 6.76-6.94 4.66-2.77 6.86-.49 9.86-3.04Z"/>
+                    </svg>
+
+                    <img :src="'/builder/white.jpg'" class="absolute top-0 w-full object-cover mx-auto"/>
+                </div>
+            </div>
+
+            <!--   Options    -->
+            <div class="">
+                <div class="flex justify-center md:justify-start space-x-4 mb-6">
+                    <div
+                        v-for="(option, index) in options"
+                         class="bg-gray-200 text-sm px-5 py-2 border rounded-3xl cursor-pointer hover:bg-gray-300"
+                        :class="{'border-black font-medium bg-gray-300': option_idx === index}"
+                        @click="chooseOption(index)"
+                    >
+                        {{option.name}}
+                    </div>
+                </div>
+
+                <div class="mb-12 flex justify-center md:justify-start">
+                    <div class="flex flex-wrap justify-center gap-x-10 gap-y-4">
+                        <div
+                            v-for="(tag, index) in tags"
+                            class="flex flex-col items-center"
+                            @click="chooseTag(index)"
+                        >
+                            <div
+                                class="mb-1 border rounded-full w-8 h-8 cursor-pointer"
+                                :class="{'border-black p-3 font-medium': result[option_idx].tag === index}"
+                                :style="{'backgroundColor': tag.color}"
+                            >
+
+                            </div>
+                            <p class="text-xs">{{tag.name}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save -->
+                <div
+                    @click="save"
+                    class="flex items-center mx-auto md:mx-0 justify-center uppercase font-medium bg-stone-800 hover:bg-stone-700 cursor-pointer text-sm text-white py-3 w-32 rounded-md shadow">
+                    Сохранить
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import CartIcon from "../icons/CartIcon";
+export default {
+    name: "Builder",
+    components: {CartIcon},
+    data: () => ({
+        options: [
+            {
+                id: 1,
+                name: 'Начинка',
+                tags: [
+                    {
+                        id: 1,
+                        name: 'Клубничная',
+                        slug: 'straw'
+                    },
+                    {
+                        id: 2,
+                        name: 'Банановая',
+                        slug: 'banana'
+                    },
+                    {
+                        id: 3,
+                        name: 'Малиновая',
+                        slug: 'malin'
+                    },
+                    {
+                        id: 4,
+                        name: 'Шоколадная',
+                        slug: 'choco'
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Форма',
+                tags: [
+                    {
+                        id: 1,
+                        name: 'Сердце',
+                        slug: 'heart'
+                    },
+                    {
+                        id: 2,
+                        name: 'Круг',
+                        slug: 'circle'
+                    },
+                    {
+                        id: 3,
+                        name: 'Квадрат',
+                        slug: 'square'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: 'Декор',
+                tags: [
+                    {
+                        id: 1,
+                        name: 'Серый',
+                        slug: 'gray',
+                        color: '#ffffff'
+                    },
+                    {
+                        id: 2,
+                        name: 'Красный',
+                        slug: 'red',
+                        color: '#E53935'
+                    },
+                    {
+                        id: 3,
+                        name: 'Желтый',
+                        slug: 'yellow',
+                        color: '#FFFF00',
+                    }
+                ]
+            }
+        ],
+        option_idx: 0,
+        tags: [],
+        color: '#FFEE58',
+        result: [
+            {
+                tag: 0
+            },
+            {
+                tag: 0,
+            },
+            {
+                tag: 0
+            }
+        ]
+    }),
+    mounted() {
+        this.tags = this.options[0].tags
+    },
+    computed: {
+        image() {
+            return this.options[1].tags[this.result[1].tag].slug + '-' + this.options[2].tags[this.result[2].tag].slug
+        }
+    },
+    methods: {
+        chooseOption(id) {
+            this.option_idx = id
+            this.tags = this.options[id].tags
+        },
+        chooseTag(id) {
+            this.result[this.option_idx].tag = id
+            this.color = this.options[2].tags[id].color
+        },
+        save() {
+            this.$store.dispatch('addBuilder', {
+                image: '/builder/'+ this.image + '.jpg',
+                title: 'Custom',
+                price: 9000
+            })
+
+            this.$router.push({ name: 'Product', params: { id: 0 } })
+        }
+    }
+}
+</script>
