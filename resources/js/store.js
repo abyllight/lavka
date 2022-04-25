@@ -1,7 +1,6 @@
 import { createStore } from 'vuex'
 import { uuid } from "vue-uuid";
 import axios from "axios";
-import loading from "./components/Loading";
 
 let host = 'https://back.eatandfit.kz/api'
 let cutlery = window.localStorage.getItem('cutlery');
@@ -22,7 +21,8 @@ const store = createStore({
             loading: false,
             cutlery: cutlery ? JSON.parse(cutlery) : cutlery_sample,
             delivery_fee: 600,
-            host: process.env.MIX_BACK_HOST_URL
+            host: process.env.MIX_BACK_HOST_URL,
+            footer: true
         }
     },
     getters: {
@@ -87,6 +87,12 @@ const store = createStore({
         },
         STOP_LOADING(state) {
             state.loading = false
+        },
+        HIDE_FOOTER(state) {
+            state.footer = false
+        },
+        SHOW_FOOTER(state) {
+            state.footer = true
         }
     },
     actions: {
@@ -168,6 +174,12 @@ const store = createStore({
         },
         stopLoading({commit}) {
             commit('STOP_LOADING')
+        },
+        hideFooter({commit}) {
+            commit('HIDE_FOOTER')
+        },
+        showFooter({commit}) {
+            commit('SHOW_FOOTER')
         }
     }
 })

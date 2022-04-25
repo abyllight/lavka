@@ -18,6 +18,20 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/FooterSection";
 export default {
     name: "App",
-    components: {Footer, Navbar}
+    components: {Footer, Navbar},
+    data: () => ({
+        is_visible: true
+    })
 }
 </script>
+<style>
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+</style>

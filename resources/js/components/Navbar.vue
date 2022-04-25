@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed z-20 w-full shadow-lg bg-zinc-900">
+    <div class="fixed z-40 w-full shadow-lg bg-zinc-900">
         <div class="max-w-6xl text-white mx-auto px-4 py-3.5 flex items-center justify-between">
             <!-- Left -->
             <div>
